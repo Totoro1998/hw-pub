@@ -42,8 +42,8 @@ const responseInterceptor = (response: AxiosResponse<any>) => {
  */
 const responseInterceptorCatch = (error: any) => {
   if (error.response && error.response.status === 401) {
-    const login_url = `${window.location.origin.replace('localhost', '127.0.0.1')}/login`;
-    window.location.href = login_url;
+    // const login_url = `${window.location.origin.replace('localhost', '127.0.0.1')}/login`;
+    // window.location.href = login_url;
   } else {
     // Message({
     //   message: error.message,

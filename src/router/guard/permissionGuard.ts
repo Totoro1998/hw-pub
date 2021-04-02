@@ -1,31 +1,43 @@
 import type { LocationQuery, Router } from 'vue-router';
-import { getCookie, setCookie } from '@/utils/cookies';
+import { setCookie } from '@/utils/cookies';
 import NProgress from 'nprogress';
-
+import { userStore } from '@/store/modules/user';
+import { appStore } from '@/store/modules/app';
 const whiteList = ['/login'];
 
 export function createPermissionGuard(router: Router) {
-  router.beforeEach((to, from, next) => {
+  router.beforeEach(async (to, from, next) => {
     NProgress.start();
-    if (getCookie('session')) {
-      if (to.path === '/login') {
-        next({ path: '/' });
-        NProgress.done();
-      } else {
-        next();
+    const userInfo = userStore.userInfo;
+    if (userInfo) {
+      try {
+        if (to.path === '/login') {
+          next({ path: '/' });
+          NProgress.done();
+        } else {
+          next();
+        }
+      } catch (error) {
+        userStore.COMMIT_RESETUSERINFO();
+        appStore.ChangeLogin(false);
+        next(`/login?redirect=${to.path}`);
       }
     } else {
       const { query } = to;
+      // cas跳转后设置session和请求用户信息
       if (query.session) {
         setCookie('session', query.session);
         const otherQuery = getOtherQuery(query, 'session');
-        router.replace({ path: to.path || '/', query: otherQuery });
-      }
-      if (whiteList.indexOf(to.path) !== -1) {
-        next();
+        await userStore.GetUserInfoAction();
+        appStore.ChangeLogin(true);
+        router.push({ path: to.path || '/', query: otherQuery });
       } else {
-        next(`/login?redirect=${to.path}`);
-        NProgress.done();
+        if (whiteList.indexOf(to.path) !== -1) {
+          next();
+        } else {
+          next(`/login?redirect=${to.path}`);
+          NProgress.done();
+        }
       }
     }
   });

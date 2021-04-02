@@ -6,7 +6,6 @@ import '@/router/guard';
 import { registerUI } from './plugins/ui';
 import 'ant-design-vue/dist/antd.css';
 import './style/index.less';
-
 const app = createApp(App);
 registerUI(app);
 app.use(store);

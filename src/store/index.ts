@@ -1,13 +1,9 @@
-import { createStore } from 'vuex';
+import { createStore, createLogger } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
 const persistedConfig = {
-  reducer: (state: any) => {
-    return {
-      userInfo: state.userInfo,
-    };
-  },
+  paths: ['app.isLogin', 'user.userInfo'],
 };
 export default createStore({
-  plugins: [createPersistedState(persistedConfig)],
+  plugins: [createPersistedState(persistedConfig), createLogger()],
 });
