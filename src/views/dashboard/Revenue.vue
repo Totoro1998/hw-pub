@@ -1,10 +1,10 @@
 <template>
-  <router-view />
+  <div>Revenue</div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   export default defineComponent({
-    name: 'App',
+    name: 'DBRevenue',
   });
 </script>
-<style lang="less"></style>
+<style lang="less" scoped></style>

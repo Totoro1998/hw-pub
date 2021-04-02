@@ -1,10 +1,10 @@
 <template>
-  <router-view />
+  <a-layout-sider class="app_sider">Sider</a-layout-sider>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   export default defineComponent({
-    name: 'App',
+    name: 'AppLayoutSider',
   });
 </script>
-<style lang="less"></style>
+<style lang="less" scoped></style>

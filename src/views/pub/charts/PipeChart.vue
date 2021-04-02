@@ -1,10 +1,10 @@
 <template>
-  <router-view />
+  <div>PipeChart</div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
   export default defineComponent({
-    name: 'App',
+    name: 'PipeLineChart',
   });
 </script>
-<style lang="less"></style>
+<style lang="less" scoped></style>
