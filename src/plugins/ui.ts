@@ -19,6 +19,7 @@ import {
   Tooltip,
   Upload,
 } from 'ant-design-vue';
+import SvgIcon from '@/components/SvgIcon/index.vue'; // svg component
 import { App } from 'vue';
 
 const compList = [
@@ -46,6 +47,7 @@ const compList = [
   Timeline,
   Tooltip,
   Upload,
+  SvgIcon,
 ];
 
 export function registerUI(app: App) {
