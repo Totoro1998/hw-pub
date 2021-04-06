@@ -1,9 +1,10 @@
-import { RouteRecordRaw } from 'vue-router';
+import { AppRouteRecordRaw } from '@/types/config';
 
-const form: RouteRecordRaw[] = [
+const form: AppRouteRecordRaw[] = [
   {
     path: 'pub/form',
     name: 'PubForm',
+    hidden: false,
     meta: {
       title: '表单',
       ignoreKeepAlive: true,

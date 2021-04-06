@@ -1,8 +1,9 @@
-import { RouteRecordRaw } from 'vue-router';
+import { AppRouteRecordRaw } from '@/types/config';
 
-const charts: RouteRecordRaw[] = [
+const charts: AppRouteRecordRaw[] = [
   {
     path: 'pub/charts/bar',
+    hidden: false,
     name: 'PubBarChart',
     meta: {
       title: '柱状图',
@@ -13,6 +14,7 @@ const charts: RouteRecordRaw[] = [
   {
     path: 'pub/charts/line',
     name: 'PubLineChart',
+    hidden: false,
     meta: {
       title: '折线图',
       ignoreKeepAlive: true,
@@ -22,6 +24,7 @@ const charts: RouteRecordRaw[] = [
   {
     path: 'pub/charts/pipe',
     name: 'PubPipeChart',
+    hidden: false,
     meta: {
       title: '饼图',
       ignoreKeepAlive: true,
