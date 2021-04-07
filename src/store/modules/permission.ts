@@ -1,6 +1,6 @@
 import { Module, VuexModule, getModule, Mutation, Action } from 'vuex-module-decorators';
 import store from '@/store';
-import { AppRouteRecordRaw } from '@/types/config';
+import { RouteRecordRaw } from 'vue-router';
 
 @Module({
   dynamic: true,
@@ -10,15 +10,15 @@ import { AppRouteRecordRaw } from '@/types/config';
   preserveState: localStorage.getItem('vuex') !== null,
 })
 export default class Permission extends VuexModule {
-  public routes: AppRouteRecordRaw[] = [];
+  public routes: RouteRecordRaw[] = [];
   @Mutation
-  SET_ROTES(routes: AppRouteRecordRaw[]): void {
+  SET_ROTES(routes: RouteRecordRaw[]): void {
     this.routes = routes;
   }
   @Action
   GenerateRoutes(roles: string[]) {
+    const routes: RouteRecordRaw[] = [];
     console.log(roles);
-    const routes: AppRouteRecordRaw[] = [];
     this.SET_ROTES(routes);
   }
 }

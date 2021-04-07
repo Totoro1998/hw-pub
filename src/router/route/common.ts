@@ -1,29 +1,14 @@
-import AppLayout from '@/layout/index.vue';
-import { AppRouteRecordRaw } from '@/types/config';
+import { RouteRecordRaw } from 'vue-router';
 
-const commonRouteConfig: AppRouteRecordRaw[] = [
+const commonRouteConfig: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: { name: 'index' },
-    hidden: true,
-    component: AppLayout,
-    children: [
-      //  首页
-      {
-        path: 'index',
-        name: 'index',
-        meta: {
-          title: '工作台',
-          ignoreKeepAlive: true,
-        },
-        component: () => import('@/views/workbench/index.vue'),
-      },
-    ],
+    redirect: { name: 'WB' },
+    name: 'home',
   },
   {
     path: '/login',
-    name: '/Login',
-    hidden: true,
+    name: 'Login',
     meta: {
       title: '登录',
       ignoreKeepAlive: true,

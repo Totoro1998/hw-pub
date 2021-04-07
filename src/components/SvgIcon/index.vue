@@ -5,7 +5,8 @@
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue';
+  export default defineComponent({
     name: 'SvgIcon',
     props: {
       iconName: {
@@ -29,7 +30,7 @@
         }
       },
     },
-  };
+  });
 </script>
 
 <style scoped>

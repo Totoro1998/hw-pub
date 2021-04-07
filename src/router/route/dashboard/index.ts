@@ -1,11 +1,10 @@
-import { AppRouteRecordRaw } from '@/types/config';
 import AppLayout from '@/layout/index.vue';
+import { RouteRecordRaw } from 'vue-router';
 
-const dbRouteConfig: AppRouteRecordRaw[] = [
+const dbRouteConfig: RouteRecordRaw[] = [
   {
     path: '/dashboard',
     name: '报表',
-    hidden: false,
     component: AppLayout,
     children: [
       {

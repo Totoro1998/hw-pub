@@ -38,6 +38,7 @@ const compList = [
   Menu,
   Menu.SubMenu,
   Menu.Item,
+  Menu.ItemGroup,
   Modal,
   Radio,
   Row,

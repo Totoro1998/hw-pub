@@ -1,5 +1,5 @@
 <template>
-  <a-menu-item v-if="!item.children" :key="item.path">
+  <a-menu-item v-if="!item.children || item.showSide" :key="item.path">
     <span>
       {{ item.title }}
     </span>
@@ -10,14 +10,15 @@
         {{ item.title }}
       </span>
     </template>
-    <a-menu-item v-for="child in item.children" :key="child.path">
-      <span>
-        {{ child.title }}
-      </span>
-    </a-menu-item>
+    <a-menu-item-group v-for="child in item.children" :key="child.path" :title="child.title">
+      <a-menu-item v-for="grandson in getGrandson(child)" :key="grandson.path">
+        <span>{{ grandson.title }}</span>
+      </a-menu-item>
+    </a-menu-item-group>
   </a-sub-menu>
 </template>
 <script lang="ts">
+  import { MenuItem } from '@/types/config';
   import { defineComponent } from 'vue';
   export default defineComponent({
     name: 'HeaderMenuItem',
@@ -31,6 +32,11 @@
       return {
         selectedKeys: '',
       };
+    },
+    methods: {
+      getGrandson(val: MenuItem) {
+        return val.children ? val.children : [val];
+      },
     },
   });
 </script>

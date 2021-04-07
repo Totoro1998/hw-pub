@@ -8,9 +8,11 @@ const whiteList = ['/login'];
 export function createPermissionGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     NProgress.start();
+    const { query } = to;
     const userInfo = userStore.userInfo;
-    if (userInfo) {
+    if (userInfo && !query.session) {
       try {
+        console.log(to);
         if (to.path === '/login') {
           next({ path: '/' });
           NProgress.done();
@@ -23,7 +25,6 @@ export function createPermissionGuard(router: Router) {
         next(`/login?redirect=${to.path}`);
       }
     } else {
-      const { query } = to;
       // cas跳转后设置session和请求用户信息
       if (query.session) {
         setCookie('session', query.session);

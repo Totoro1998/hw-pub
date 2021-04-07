@@ -1,7 +1,9 @@
+@import './global.less';
+
 .app_header {
   display: flex;
   justify-content: space-between;
-  background-color: white;
+  background-color: #181530;
   padding: 0;
   .logo {
     width: 200px;
@@ -14,4 +16,12 @@
 }
 .app_sider {
   min-height: calc(100vh - 64px);
+}
+.ant-menu-light {
+  background-color: #181530;
+  .submenu-title-wrapper,
+  .ant-menu-item {
+    color: white;
+    font-weight: 500;
+  }
 }

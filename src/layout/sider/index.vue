@@ -23,7 +23,6 @@
       const menuItem = ref<MenuItem>(initMenuItem);
       onBeforeRouteUpdate((to) => {
         if (to.path !== '/index' && to.path !== '/') {
-          console.log(getFlatMenus());
           menuItem.value = getFlatMenus().filter((item) => {
             return item.path === to.path;
           })[0];

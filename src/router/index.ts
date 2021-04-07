@@ -1,30 +1,17 @@
 import { App } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
-import AppLayout from '@/layout/index.vue';
-import dbRouteConfig from './route/dashboard';
-import pubRouteConfig from './route/pub/modules';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import pubRouteConfig from './route/pub';
+import productRouteConfig from './route/product';
+import workbenchRouteConfig from './route/workbench';
+import metaRouteConfig from './route/meta';
+
 import commonRouteConfig from './route/common';
-import { AppRouteRecordRaw } from '@/types/config';
-const routes: Array<AppRouteRecordRaw> = [
-  //  报表
-  ...dbRouteConfig,
-  //  业务
-  {
-    path: '/work',
-    showHeader: true,
-    hidden: false,
-    redirect: { name: 'PubUser' },
-    component: AppLayout,
-    children: [...pubRouteConfig],
-    meta: {
-      roles: ['work'],
-      headerMenus: [
-        { title: 'HW', path: 'hw', roles: ['work-hw'], icon: '' },
-        { title: 'Pub', path: 'pub', roles: ['work-pub'], icon: '' },
-      ],
-    },
-  },
+const routes: RouteRecordRaw[] = [
   ...commonRouteConfig,
+  workbenchRouteConfig,
+  pubRouteConfig,
+  productRouteConfig,
+  metaRouteConfig,
 ];
 
 const router = createRouter({
