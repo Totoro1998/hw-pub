@@ -1,13 +1,13 @@
 <template>
-  <a-layout-sider class="app_sider" v-if="menuItem.children">
+  <a-layout-sider class="app_sider beauty-scroll" v-if="showSider">
     <sider-menu :menu-item="menuItem" />
   </a-layout-sider>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
-  import { onBeforeRouteUpdate } from 'vue-router';
+  import { useRoute } from 'vue-router';
   import SiderMenu from './components/SiderMenu.vue';
-  import { getFlatMenus } from '@/router/menu';
+  import { menus } from '@/router/menu';
   import { MenuItem } from '@/types/config';
   export default defineComponent({
     name: 'AppLayoutSider',
@@ -15,22 +15,44 @@
       SiderMenu,
     },
     setup() {
+      const { path } = useRoute();
       const initMenuItem: MenuItem = {
         path: '',
         title: '',
         icon: '',
       };
+      const showSider = ref(true);
       const menuItem = ref<MenuItem>(initMenuItem);
-      onBeforeRouteUpdate((to) => {
-        if (to.path !== '/index' && to.path !== '/') {
-          menuItem.value = getFlatMenus().filter((item) => {
-            return item.path === to.path;
+      const initSide = (path: string) => {
+        const urls = path.split('/');
+        if (urls.length > 1) {
+          const matchedMenuItem = menus.filter((item) => {
+            return item.path === urls[1];
           })[0];
+          if (matchedMenuItem && matchedMenuItem.children) {
+            menuItem.value = matchedMenuItem;
+            showSider.value = true;
+          } else {
+            showSider.value = false;
+          }
+        } else {
+          showSider.value = false;
         }
-      });
-      return {
-        menuItem,
       };
+      initSide(path);
+      return {
+        showSider,
+        menuItem,
+        initSide,
+      };
+    },
+    watch: {
+      '$route.path': {
+        handler(val) {
+          this.initSide(val);
+        },
+        deep: true, //true 深度监听
+      },
     },
   });
 </script>

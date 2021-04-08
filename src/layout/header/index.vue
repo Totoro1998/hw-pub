@@ -9,13 +9,13 @@
   import { defineComponent } from 'vue';
   import HeaderMenu from './components/HeaderMenu.vue';
   import HeaderDropDown from './components/HeaderDropDown.vue';
-  import { userStore } from '@/store/modules/user';
   import { IUserInfo } from '@/store/types';
+  import { cacheStore } from '@/store/modules/cache';
   export default defineComponent({
     name: 'AppLayoutHeader',
     data() {
       return {
-        userInfo: userStore.userInfo as IUserInfo,
+        userInfo: cacheStore.userInfo as IUserInfo,
       };
     },
     components: {

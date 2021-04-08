@@ -1,5 +1,11 @@
 <template>
-  <a-menu v-model:selectedKeys="selectedKeys" @click="handleMenuClick">
+  <a-menu
+    v-model:selectedKeys="selectedKeys"
+    @click="handleMenuClick"
+    v-model:openKeys="openKeys"
+    mode="inline"
+    theme="dark"
+  >
     <sider-menu-item v-for="menu in menus" :key="menu.path" :item="menu" :base-path="menu.path" />
   </a-menu>
 </template>
@@ -9,6 +15,8 @@
   import SiderMenuItem from './SiderMenuItem.vue';
   import { formatMenuPath } from '@/router/menu';
   import { MenuItem } from '@/types/config';
+  import { urlToList } from '@/utils/page';
+  import dropRight from 'lodash/dropRight';
   export default defineComponent({
     name: 'SiderMenu',
     components: {
@@ -19,12 +27,22 @@
     },
     data() {
       return {
-        selectedKeys: '',
+        selectedKeys: urlToList(this.$route.path),
+        openKeys: dropRight(urlToList(this.$route.path)),
       };
+    },
+    watch: {
+      '$route.path': {
+        handler(val) {
+          this.selectedKeys = urlToList(val);
+          this.openKeys = dropRight(urlToList(val));
+        },
+        deep: true, //true 深度监听
+      },
     },
     computed: {
       menus(): MenuItem[] {
-        return this.menuItem ? formatMenuPath([this.menuItem]) : [];
+        return this.menuItem ? formatMenuPath([this.menuItem])[0].children! : [];
       },
     },
     methods: {

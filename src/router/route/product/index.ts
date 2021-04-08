@@ -7,7 +7,8 @@ const product: RouteRecordRaw = {
     title: '产品',
     ignoreKeepAlive: true,
   },
-  components: AppLayout,
+  component: AppLayout,
+  redirect: { name: 'ProductList' },
   children: [
     {
       path: 'list',

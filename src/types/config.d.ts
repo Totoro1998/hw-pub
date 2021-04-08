@@ -5,3 +5,7 @@ export interface MenuItem {
   showSide?: boolean;
   children?: MenuItem[];
 }
+
+declare type Nullable<T> = T | null;
+declare type NonNullable<T> = T extends null | undefined ? never : T;
+declare type ElRef<T extends HTMLElement = HTMLDivElement> = Nullable<T>;

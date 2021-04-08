@@ -9,6 +9,10 @@ const legal: MenuItem = {
       path: 'invoice',
       title: '发票审核',
       icon: '',
+      children: [
+        { path: 'pending', title: '待审核', icon: '' },
+        { path: 'done', title: '已审核', icon: '' },
+      ],
     },
     {
       path: 'privacy',

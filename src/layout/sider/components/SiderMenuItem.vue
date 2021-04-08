@@ -10,11 +10,12 @@
         {{ item.title }}
       </span>
     </template>
-    <a-menu-item v-for="child in item.children" :key="child.path">
-      <span>
-        {{ child.title }}
-      </span>
-    </a-menu-item>
+    <sider-menu-item
+      v-for="child in item.children"
+      :key="child.path"
+      :item="child"
+      :base-path="child.path"
+    />
   </a-sub-menu>
 </template>
 <script lang="ts">
@@ -26,11 +27,6 @@
         required: true,
         type: Object,
       },
-    },
-    data() {
-      return {
-        selectedKeys: '',
-      };
     },
   });
 </script>

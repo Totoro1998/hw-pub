@@ -28,11 +28,6 @@
         type: Object,
       },
     },
-    data() {
-      return {
-        selectedKeys: '',
-      };
-    },
     methods: {
       getGrandson(val: MenuItem) {
         return val.children ? val.children : [val];

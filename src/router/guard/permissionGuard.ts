@@ -1,18 +1,16 @@
 import type { LocationQuery, Router } from 'vue-router';
 import { setCookie } from '@/utils/cookies';
 import NProgress from 'nprogress';
-import { userStore } from '@/store/modules/user';
-import { appStore } from '@/store/modules/app';
+import { cacheStore } from '@/store/modules/cache';
 const whiteList = ['/login'];
 
 export function createPermissionGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     NProgress.start();
     const { query } = to;
-    const userInfo = userStore.userInfo;
+    const userInfo = cacheStore.userInfo;
     if (userInfo && !query.session) {
       try {
-        console.log(to);
         if (to.path === '/login') {
           next({ path: '/' });
           NProgress.done();
@@ -20,8 +18,8 @@ export function createPermissionGuard(router: Router) {
           next();
         }
       } catch (error) {
-        userStore.COMMIT_RESETUSERINFO();
-        appStore.ChangeLogin(false);
+        cacheStore.COMMIT_RESETUSERINFO();
+        cacheStore.TOGGLE_LOGIN(false);
         next(`/login?redirect=${to.path}`);
       }
     } else {
@@ -29,8 +27,8 @@ export function createPermissionGuard(router: Router) {
       if (query.session) {
         setCookie('session', query.session);
         const otherQuery = getOtherQuery(query, 'session');
-        await userStore.GetUserInfoAction();
-        appStore.ChangeLogin(true);
+        await cacheStore.GetUserInfoAction();
+        cacheStore.TOGGLE_LOGIN(true);
         router.push({ path: to.path || '/', query: otherQuery });
       } else {
         if (whiteList.indexOf(to.path) !== -1) {

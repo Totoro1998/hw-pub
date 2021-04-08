@@ -7,7 +7,6 @@ import { RouteRecordRaw } from 'vue-router';
   namespaced: true,
   store,
   name: 'permission',
-  preserveState: localStorage.getItem('vuex') !== null,
 })
 export default class Permission extends VuexModule {
   public routes: RouteRecordRaw[] = [];
@@ -22,4 +21,4 @@ export default class Permission extends VuexModule {
     this.SET_ROTES(routes);
   }
 }
-export const appStore = getModule<Permission>(Permission);
+export const permissionStore = getModule<Permission>(Permission);

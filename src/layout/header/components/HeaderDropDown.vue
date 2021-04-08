@@ -14,8 +14,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { removeCookie } from '@/utils/cookies';
-  import { userStore } from '@/store/modules/user';
-  import { appStore } from '@/store/modules/app';
+  import { cacheStore } from '@/store/modules/cache';
   import { isDev } from '@/utils/common';
   export default defineComponent({
     name: 'HeaderDropDown',
@@ -38,8 +37,8 @@
       },
       handleLogout() {
         removeCookie('session');
-        userStore.COMMIT_RESETUSERINFO();
-        appStore.ChangeLogin(false);
+        cacheStore.COMMIT_RESETUSERINFO();
+        cacheStore.TOGGLE_LOGIN(false);
         let env = '';
         if (isDev) {
           env = `https://dev-gamepub.modooplay.com/cas/cas_logout?next=${window.location.origin.replace(

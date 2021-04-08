@@ -1,5 +1,10 @@
 <template>
-  <a-menu mode="horizontal" v-model:selectedKeys="selectedKeys" @click="handleMenuClick">
+  <a-menu
+    mode="horizontal"
+    :selectedKeys="selectedKeys"
+    @click="handleMenuClick"
+    class="header_menu"
+  >
     <header-menu-item v-for="menu in menus" :key="menu.path" :item="menu" :base-path="menu.path" />
   </a-menu>
 </template>
@@ -15,7 +20,7 @@
     data() {
       return {
         menus: formatMenuPath(menus),
-        selectedKeys: '',
+        selectedKeys: [],
       };
     },
     methods: {
@@ -25,4 +30,10 @@
     },
   });
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .header_menu {
+    background-color: #181530;
+    color: white;
+    font-weight: 500;
+  }
+</style>
