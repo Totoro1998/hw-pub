@@ -55,6 +55,7 @@ module.exports = {
     'vue/singleline-html-element-content-newline': 'off',
     'vue/attribute-hyphenation': 'off',
     'vue/require-default-prop': 'off',
+    'vue/no-setup-props-destructure': 'off',
     'vue/html-self-closing': [
       'error',
       {

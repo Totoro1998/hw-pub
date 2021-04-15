@@ -8,7 +8,7 @@ import { getUserInfo } from '@/api/user';
   namespaced: true,
   store,
   name: 'cache',
-  preserveState: localStorage.getItem('vuex') !== null,
+  preserveState: localStorage.getItem('hwCache') !== null,
 })
 export default class Cache extends VuexModule {
   public isLogin = false;
@@ -40,10 +40,10 @@ export default class Cache extends VuexModule {
   COMMIT_RESETUSERINFO(): void {
     this.userInfo = null;
   }
-  @Action
+  @Action({ rawError: true })
   async GetUserInfoAction() {
     const userInfo = await getUserInfo();
-    await this.COMMIT_USERINFO(userInfo);
+    this.COMMIT_USERINFO(userInfo);
   }
 }
 export const cacheStore = getModule<Cache>(Cache);

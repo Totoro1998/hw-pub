@@ -2,6 +2,7 @@ const path = require('path');
 const { dev } = require('./config');
 const webpack = require('webpack');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const aliyunTheme = require('@ant-design/aliyun-theme');
 const resolve = (dir) => {
   return path.join(__dirname, dir);
 };
@@ -105,4 +106,14 @@ module.exports = {
   },
   runtimeCompiler: true,
   productionSourceMap: false,
+  css: {
+    loaderOptions: {
+      less: {
+        lessOptions: {
+          javascriptEnabled: true,
+          modifyVars: aliyunTheme,
+        },
+      },
+    },
+  },
 };

@@ -1,4 +1,4 @@
-import userStore from '@/store/modules/user';
+import { cacheStore } from '@/store/modules/cache';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import MD5 from 'crypto-js/md5';
 
@@ -18,7 +18,9 @@ const requestInterceptor = (config: AxiosRequestConfig) => {
   config.headers['timestamp'] = timestamp;
   config.headers['signature'] = signature;
   config.headers['appname'] = 'pub';
-  config.headers['username'] = encodeURIComponent(userStore.name);
+  if (cacheStore.userInfo) {
+    config.headers['username'] = encodeURIComponent(cacheStore.userInfo.name);
+  }
   return config;
 };
 /**

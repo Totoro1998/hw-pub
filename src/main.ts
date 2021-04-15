@@ -4,7 +4,7 @@ import router from './router';
 import store from './store';
 import '@/router/guard';
 import { registerUI } from './plugins/ui';
-import 'ant-design-vue/dist/antd.css';
+import './icons';
 import animate from 'animate.css';
 import './style/index.less';
 import { setupGlobDirectives } from './directives';
