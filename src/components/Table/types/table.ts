@@ -102,7 +102,6 @@ export interface TabItems {
   tab: string | number;
 }
 export interface TabConfig {
-  isUseTabs: boolean;
   activeKey: string;
   tabItems: TabItems[];
   searchField?: string;

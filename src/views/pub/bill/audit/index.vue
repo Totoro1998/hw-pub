@@ -79,7 +79,6 @@
         title: '工作流列表',
         api: getProgressList,
         tabConfig: {
-          isUseTabs: true,
           tabItems: [
             {
               key: 'finance_confirm',
