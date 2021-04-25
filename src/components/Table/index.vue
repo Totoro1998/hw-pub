@@ -53,6 +53,7 @@
   import { createTableContext } from './hooks/useTableContext';
 
   export default defineComponent({
+    name: 'WeTable',
     components: {
       HeaderCell,
       TableHeader,

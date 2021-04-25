@@ -57,23 +57,22 @@ module.exports = {
             name: 'chunk-libs',
             test: /[\\/]node_modules[\\/]/,
             priority: 10,
-            chunks: 'initial', // only package third parties that are initially dependent
+            chunks: 'initial',
           },
           'ant-design-vue': {
-            name: 'chunk-ant-design-vue', // split elementUI into a single package
-            priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-            test: /[\\/]node_modules[\\/]_?ant-design-vue(.*)/, // in order to adapt to cnpm
+            name: 'chunk-ant-design-vue',
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?ant-design-vue(.*)/,
           },
           commons: {
             name: 'chunk-commons',
-            test: resolve('src/components'), // can customize your rules
-            minChunks: 3, //  minimum common number
+            test: resolve('src/components'),
+            minChunks: 3,
             priority: 5,
             reuseExistingChunk: true,
           },
         },
       });
-      // https:// webpack.js.org/configuration/optimization/#optimizationruntimechunk
       config.optimization.runtimeChunk('single');
       config.optimization.minimizer('terser').tap((args) => [
         ...args,
