@@ -297,8 +297,8 @@
         "affectsGlobalScope": false
       },
       "./src/types/config.d.ts": {
-        "version": "55f319478b8dc52fb11b2f63838099c5f00995a48c8a760ba2a60c22932f0cb1",
-        "signature": "55f319478b8dc52fb11b2f63838099c5f00995a48c8a760ba2a60c22932f0cb1",
+        "version": "c6c8eb3977199e617a5de94b3bf3929980223437f1f3b6b81c6f989c25405a7f",
+        "signature": "c6c8eb3977199e617a5de94b3bf3929980223437f1f3b6b81c6f989c25405a7f",
         "affectsGlobalScope": false
       },
       "./src/layout/header/components/headermenuitem.vue.ts": {
@@ -747,8 +747,8 @@
         "affectsGlobalScope": false
       },
       "./src/components/table/types/table.ts": {
-        "version": "8b40277987ad76acecd7bffdff34ffd401e223560224bc0574b2dd569acac222",
-        "signature": "4cb08ebad7df5f344e89f204cc5ee8df7057cfb81866b49e0551efde967faa69",
+        "version": "c012d17a189baf9bacd3a0d4aa510335c31dff067473e9de9ad077ee471c2326",
+        "signature": "08d0687e3502bc16c151d78e61bcb945ba968077a74496d99db73e15602ecc83",
         "affectsGlobalScope": false
       },
       "./src/components/table/components/headercell.vue.ts": {
@@ -902,8 +902,8 @@
         "affectsGlobalScope": false
       },
       "./src/components/table/hooks/usepagination.tsx": {
-        "version": "813d964d83d15e56d33616c69d820540d0a4e77db95fd4f2ce42d162266553c9",
-        "signature": "0567eee81a35e6ef68bebc97e4a8a6a780be6817949d6838d76b20a9646896c9",
+        "version": "a97f72c3ba4126fe8fcaef59f57ebd1a91e9bd1e019bc89b86cbbafaf82988d5",
+        "signature": "21acd95752b4992335b530fcc06a3edf2ce97a9b3f4011a1e7520e5ef47ac82a",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/lodash/isarray.d.ts": {
@@ -962,8 +962,8 @@
         "affectsGlobalScope": false
       },
       "./src/components/table/hooks/usedatasource.ts": {
-        "version": "2169fc96bddbc9c1e5e558d2f475da0efa0c2792f33216f07e9ffac4a89d09ba",
-        "signature": "88890cfdd030987ba327146ced551105a1605c2e9b24f18f41e2400dd21867b3",
+        "version": "6700d27d5b53daae8ddcfb95a871ffec38dfdbaf256b7ae8b73b1f119222f473",
+        "signature": "6b5aa914d75e1de8e871817d3e55a6b47ecd36f4352bf45aed671bbfd832d4b2",
         "affectsGlobalScope": false
       },
       "./src/components/table/hooks/useloading.ts": {
@@ -992,13 +992,13 @@
         "affectsGlobalScope": false
       },
       "./src/components/table/props.ts": {
-        "version": "8a3dc91fab781b797e3cff315d1c26934a4aa9a5e1056f267c7a833e7f9b3cfb",
-        "signature": "b508097d55cd43299abfdbf6e8d831df52133b93cfcbef6e96dba10c844b4550",
+        "version": "83f0322ad337525fd279807e16f556a24ccef92c93b767b508a6ca81284acb2a",
+        "signature": "b565b9afdacf54811df1ffad1cbf14d1ea4444610cc6fed9c6c6a005145e9e95",
         "affectsGlobalScope": false
       },
       "./src/components/table/index.vue.ts": {
-        "version": "e264548aea56ba7807bb69528dc2a93c136d38b3cb6613dd88a9e0965f298705",
-        "signature": "d25eb486536802358716c1ab9eedf2a2ab82c8e3a34226bc9bd7f3ae814be7b3",
+        "version": "a71d46f91eb6ebae80b9744c144f66062a95681ec567cd5c310dc211a26f9572",
+        "signature": "20fb5b4324dd45734f29b5f0394ddaffcb8b6e1028bfaf5f7c6ca7819cf12024",
         "affectsGlobalScope": false
       },
       "./node_modules/ant-design-vue/es/button/buttontypes.d.ts": {
@@ -1017,7 +1017,7 @@
         "affectsGlobalScope": false
       },
       "./src/components/table/hooks/usetable.ts": {
-        "version": "2942ea88d89225b6fe99f24316b31eff6707900a83544b7f3f8d27c2ab60cd42",
+        "version": "e12f7946523757345c6baf927dc5639e0234da2da64b8b57af87394952e0c2ca",
         "signature": "60f23f8266314917a5245368952e0965a1ff23521afaac5a135a7c804b0416ce",
         "affectsGlobalScope": false
       },
@@ -11937,7 +11937,6 @@
       "./src/components/table/hooks/usetable.ts": [
         "./node_modules/tslib/tslib.d.ts",
         "./node_modules/vue/dist/vue.d.ts",
-        "./src/components/table/types/pagination.ts",
         "./src/components/table/types/table.ts",
         "./src/types/config.d.ts",
         "./src/utils/common.ts"

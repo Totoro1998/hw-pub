@@ -35,7 +35,7 @@
   </div>
 </template>
 <script lang="ts">
-  import type { BasicTableProps } from './types/table';
+  import type { BasicTableProps, TableActionType } from './types/table';
   import { FormItem } from './types/form';
   import { defineComponent, ref, computed, unref, toRaw } from 'vue';
   import HeaderCell from './components/HeaderCell.vue';
@@ -79,7 +79,7 @@
         }
       );
       const { getLoading, setLoading } = useLoading(getProps);
-      const { getPaginationInfo, setPagination } = usePagination(getProps);
+      const { setPagination, getPaginationRef } = usePagination(getProps);
       const [registerForm, formActions] = useTableForm();
       const {
         getRowSelectionRef,
@@ -88,16 +88,18 @@
         getSelectRowKeys,
       } = useRowSelection(getProps, emit);
       const {
+        setTableData,
         getDataSource,
         handleTableChange,
         getDataSourceRef,
+        updateTableData,
         getRowKey,
         reload,
       } = useDataSource(
         getProps,
         {
           tableData,
-          getPaginationInfo,
+          getPaginationRef,
           setPagination,
           setLoading,
           getFieldsValue: formActions.getFieldsValue,
@@ -105,7 +107,7 @@
         emit
       );
 
-      const { getViewColumns, getColumns, setColumns } = useColumns(getProps, getPaginationInfo);
+      const { getViewColumns, getColumns, setColumns } = useColumns(getProps, getPaginationRef);
       const { tabConfigRef } = useTabs(getProps, emit);
 
       const getBindValues = computed(() => {
@@ -119,17 +121,15 @@
           rowKey: unref(getRowKey),
           columns: toRaw(unref(getViewColumns)),
           rowSelection: unref(getRowSelectionRef),
-          pagination: toRaw(unref(getPaginationInfo)),
+          pagination: toRaw(unref(getPaginationRef)),
           dataSource,
         };
         if (slots.expandedRowRender) {
           propsData = omit(propsData, 'scroll');
         }
-
         propsData = omit(propsData, 'class');
         return propsData;
       });
-
       const getEmptyDataIsShowTable = computed(() => {
         const { emptyDataIsShowTable, useSearchForm } = unref(getProps);
         if (emptyDataIsShowTable || !useSearchForm) {
@@ -140,15 +140,15 @@
       function setProps(props: Partial<BasicTableProps>) {
         innerPropsRef.value = { ...unref(innerPropsRef), ...props };
       }
-      const tableAction: any = {
+      const tableAction: TableActionType = {
         reload,
-        setProps,
+        setTableData,
         getColumns,
         setColumns,
-        setPagination,
-        getRowSelectionRef,
-        getSelectRows,
         getDataSource,
+        setProps,
+        updateTableData,
+        getSelectRows,
         clearSelectedRowKeys,
         getSelectRowKeys,
       };

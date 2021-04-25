@@ -19,7 +19,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import uniqueId from 'lodash/uniqueId';
 import { PAGE_SIZE, ROW_KEY } from '../const';
 interface ActionType {
-  getPaginationInfo: ComputedRef<boolean | PaginationProps>;
+  getPaginationRef: ComputedRef<boolean | PaginationProps>;
   setPagination: (info: Partial<PaginationProps>) => void;
   tableData: Ref<Recordable[]>;
   setLoading: (loading: boolean) => void;
@@ -32,7 +32,7 @@ interface SearchState {
 }
 export function useDataSource(
   propsRef: ComputedRef<BasicTableProps>,
-  { getPaginationInfo, setPagination, tableData, setLoading, getFieldsValue }: ActionType,
+  { getPaginationRef, setPagination, tableData, setLoading, getFieldsValue }: ActionType,
   emit: EmitType
 ) {
   const searchState = reactive<SearchState>({
@@ -160,9 +160,9 @@ export function useDataSource(
       };
       let pageParams: Recordable = {};
       const tabField: Recordable = {};
-      const { current = 1, rowsPerPage = PAGE_SIZE } = unref(getPaginationInfo) as PaginationProps;
+      const { current = 1, rowsPerPage = PAGE_SIZE } = unref(getPaginationRef) as PaginationProps;
 
-      if ((isBoolean(pagination) && !pagination) || isBoolean(getPaginationInfo)) {
+      if ((isBoolean(pagination) && !pagination) || isBoolean(getPaginationRef)) {
         pageParams = {};
       } else {
         pageParams['name'] = '';

@@ -44,10 +44,6 @@ export const basicProps = {
       return {};
     },
   },
-  tableSetting: {
-    type: Object,
-    default: {},
-  },
   inset: {
     type: Boolean,
   },
@@ -58,9 +54,6 @@ export const basicProps = {
   filterFn: {
     type: Function as PropType<(data: Partial<Recordable<string[]>>) => any>,
     default: DEFAULT_FILTER_FN,
-  },
-  showTableSetting: {
-    type: Boolean,
   },
   autoCreateKey: {
     type: Boolean,
@@ -137,16 +130,8 @@ export const basicProps = {
     type: Boolean,
     default: true,
   },
-  canResize: {
-    type: Boolean,
-    default: true,
-  },
   clearSelectOnPageChange: {
     type: Boolean,
-  },
-  resizeHeightOffset: {
-    type: Number,
-    default: 0,
   },
   title: {
     type: [String, Function] as PropType<string | ((data: Recordable) => string)>,

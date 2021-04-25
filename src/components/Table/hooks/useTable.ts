@@ -1,5 +1,4 @@
 import type { BasicTableProps, TableActionType, FetchParams, BasicColumn } from '../types/table';
-import type { PaginationProps } from '../types/pagination';
 import { ref, onUnmounted, unref, watch, toRaw, WatchStopHandle } from 'vue';
 import { DynamicProps } from '@/types/config';
 import { getDynamicProps } from '@/utils/common';
@@ -54,9 +53,6 @@ export function useTable(
     setProps: (props: Partial<BasicTableProps>) => {
       getTableInstance().setProps(props);
     },
-    setLoading: (loading: boolean) => {
-      getTableInstance().setLoading(loading);
-    },
     getDataSource: () => {
       return toRaw(getTableInstance().getDataSource());
     },
@@ -70,20 +66,8 @@ export function useTable(
     setTableData: (values: any[]) => {
       return getTableInstance().setTableData(values);
     },
-    setPagination: (info: Partial<PaginationProps>) => {
-      return getTableInstance().setPagination(info);
-    },
-    getPaginationRef: () => {
-      return getTableInstance().getPaginationRef();
-    },
     updateTableData: (index: number, key: string, value: any) => {
       return getTableInstance().updateTableData(index, key, value);
-    },
-    setShowPagination: async (show: boolean) => {
-      getTableInstance().setShowPagination(show);
-    },
-    getShowPagination: () => {
-      return toRaw(getTableInstance().getShowPagination());
     },
     getSelectRowKeys: () => {
       return toRaw(getTableInstance().getSelectRowKeys());

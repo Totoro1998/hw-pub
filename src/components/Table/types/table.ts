@@ -65,18 +65,12 @@ export type SizeType = 'default' | 'middle' | 'small' | 'large';
 
 export interface TableActionType {
   reload: (opt?: FetchParams) => Promise<void>;
-  setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: <T = Recordable>(values: T[]) => void;
   getColumns: (opt?: GetColumnsParams) => BasicColumn[];
   setColumns: (columns: BasicColumn[] | string[]) => void;
   getDataSource: <T = Recordable>() => T[];
-  setLoading: (loading: boolean) => void;
   setProps: (props: Partial<BasicTableProps>) => void;
-  getPaginationRef: () => PaginationProps | boolean;
-  emit?: EmitType;
   updateTableData: (index: number, key: string, value: any) => Recordable;
-  setShowPagination: (show: boolean) => Promise<void>;
-  getShowPagination: () => boolean;
   clearSelectedRowKeys: () => void;
   getSelectRowKeys: () => string[];
   getSelectRows: <T = Recordable>() => T[];
@@ -100,10 +94,6 @@ export interface TableRowSelection<T = any> extends ITableRowSelection {
   onSelectAll?: (selected: boolean, selectedRows: T[], changeRows: T[]) => any;
   onSelectInvert?: (selectedRows: string[] | number[]) => any;
 }
-export interface TableSetting {
-  setting?: boolean;
-  fullScreen?: boolean;
-}
 export interface TabItems {
   key: string | number;
   tab: string | number;
@@ -124,9 +114,6 @@ export interface BasicTableProps<T = any> {
   filterFn?: (data: Partial<Recordable<string[]>>) => any;
   // 取消表格的默认padding
   inset?: boolean;
-  // 显示表格设置
-  showTableSetting?: boolean;
-  tableSetting?: TableSetting;
   // 斑马纹
   striped?: boolean;
   // 是否自动生成key
@@ -152,10 +139,6 @@ export interface BasicTableProps<T = any> {
   actionColumn?: BasicColumn;
   // 文本超过宽度是否显示。。。
   ellipsis?: boolean;
-  // 是否可以自适应高度
-  canResize?: boolean;
-  // 自适应高度偏移， 计算结果-偏移量
-  resizeHeightOffset?: number;
   // 在分页改变的时候清空选项
   clearSelectOnPageChange?: boolean;
   //
