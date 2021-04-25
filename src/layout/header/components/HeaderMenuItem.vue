@@ -18,8 +18,8 @@
   </a-sub-menu>
 </template>
 <script lang="ts">
-  import { MenuItem } from '@/types/config';
   import { defineComponent } from 'vue';
+  import { MenuItem } from '@/types/config';
   export default defineComponent({
     name: 'HeaderMenuItem',
     props: {

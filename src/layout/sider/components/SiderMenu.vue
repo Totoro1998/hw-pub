@@ -14,8 +14,8 @@
   import type { PropType } from 'vue';
   import SiderMenuItem from './SiderMenuItem.vue';
   import { formatMenuPath } from '@/router/menu';
-  import { MenuItem } from '@/types/config';
   import { urlToList } from '@/utils/page';
+  import { MenuItem } from '@/types/config';
   import dropRight from 'lodash/dropRight';
   export default defineComponent({
     name: 'SiderMenu',
@@ -23,7 +23,7 @@
       SiderMenuItem,
     },
     props: {
-      menuItem: {} as PropType<MenuItem>,
+      menuItem: Object as PropType<MenuItem>,
     },
     data() {
       return {

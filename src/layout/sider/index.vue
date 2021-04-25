@@ -1,14 +1,14 @@
 <template>
-  <a-layout-sider class="app_sider beauty-scroll" v-if="showSider">
-    <sider-menu :menu-item="menuItem" />
+  <a-layout-sider class="app_sider beauty-scroll" v-if="showSider" theme="light" width="256">
+    <sider-menu :menu-item="menuItem" theme="light" />
   </a-layout-sider>
 </template>
 <script lang="ts">
   import { defineComponent, ref } from 'vue';
+  import { MenuItem } from '@/types/config';
   import { useRoute } from 'vue-router';
   import SiderMenu from './components/SiderMenu.vue';
   import { menus } from '@/router/menu';
-  import { MenuItem } from '@/types/config';
   export default defineComponent({
     name: 'AppLayoutSider',
     components: {

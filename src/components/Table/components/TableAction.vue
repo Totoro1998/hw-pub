@@ -16,7 +16,7 @@
     props: {
       actions: {
         type: Array as PropType<ActionItem[]>,
-        default: null,
+        default: () => [],
       },
     },
     setup(props) {

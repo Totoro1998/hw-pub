@@ -1,10 +1,5 @@
 <template>
-  <a-menu
-    mode="horizontal"
-    :selectedKeys="selectedKeys"
-    @click="handleMenuClick"
-    class="header_menu"
-  >
+  <a-menu theme="light" mode="horizontal" :selectedKeys="selectedKeys" @click="handleMenuClick">
     <header-menu-item v-for="menu in menus" :key="menu.path" :item="menu" :base-path="menu.path" />
   </a-menu>
 </template>

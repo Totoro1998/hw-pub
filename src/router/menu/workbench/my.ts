@@ -1,5 +1,4 @@
 import { MenuItem } from '@/types/config';
-
 const my: MenuItem = {
   path: 'my',
   title: '我的工作台',

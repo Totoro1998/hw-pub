@@ -5,7 +5,7 @@ import { cacheStore } from '@/store/modules/cache';
 const whiteList = ['/login'];
 
 export function createPermissionGuard(router: Router) {
-  router.beforeEach(async (to, from, next) => {
+  router.beforeEach(async (to, _from, next) => {
     NProgress.start();
     const { query } = to;
     const userInfo = cacheStore.userInfo;
@@ -29,7 +29,7 @@ export function createPermissionGuard(router: Router) {
         const otherQuery = getOtherQuery(query, 'session');
         await cacheStore.GetUserInfoAction();
         cacheStore.TOGGLE_LOGIN(true);
-        router.push({ path: to.path || '/', query: otherQuery });
+        next({ path: to.path || '/', query: otherQuery });
       } else {
         if (whiteList.indexOf(to.path) !== -1) {
           next();

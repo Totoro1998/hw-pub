@@ -11,10 +11,8 @@ import isFunction from 'lodash/isFunction';
 import isEqual from 'lodash/isEqual';
 import cloneDeep from 'lodash/cloneDeep';
 import moment from 'moment';
-import { Recordable } from '@/types/config';
-
+import { PAGE_SIZE } from '../const';
 const DEFAULT_ALIGN = 'center';
-const PAGE_SIZE = 10;
 const INDEX_COLUMN_FLAG = 'INDEX';
 const ACTION_COLUMN_FLAG = 'ACTION';
 
@@ -32,7 +30,7 @@ function handleItem(item: BasicColumn, ellipsis: boolean) {
     }
   }
 }
-
+// 用于定义化序号列
 function handleIndexColumn(
   propsRef: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<boolean | PaginationProps>,
@@ -57,7 +55,7 @@ function handleIndexColumn(
   columns.unshift({
     flag: INDEX_COLUMN_FLAG,
     width: 50,
-    title: '',
+    title: '序号',
     align: 'center',
     customRender: ({ index }) => {
       const getPagination = unref(getPaginationRef);
@@ -75,7 +73,6 @@ function handleIndexColumn(
     ...indexColumnProps,
   });
 }
-
 function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: BasicColumn[]) {
   const { actionColumn } = unref(propsRef);
   if (!actionColumn) return;
@@ -90,7 +87,6 @@ function handleActionColumn(propsRef: ComputedRef<BasicTableProps>, columns: Bas
     });
   }
 }
-
 export function useColumns(
   propsRef: ComputedRef<BasicTableProps>,
   getPaginationRef: ComputedRef<boolean | PaginationProps>
@@ -119,13 +115,14 @@ export function useColumns(
     });
     return cloneColumns;
   });
-
+  // 获取未被隐藏的columns
   const getViewColumns = computed(() => {
     const viewColumns = sortFixedColumn(unref(getColumnsRef));
 
     const columns = cloneDeep(viewColumns);
+    // 格式化columns
     columns.forEach((column) => {
-      const { slots, dataIndex, customRender, format, edit, flag } = column;
+      const { slots, dataIndex, customRender, format, flag } = column;
 
       if (!slots || !slots?.title) {
         column.slots = { title: `header-${dataIndex}`, ...(slots || {}) };
@@ -133,7 +130,8 @@ export function useColumns(
         Reflect.deleteProperty(column, 'title');
       }
       const isDefaultAction = [INDEX_COLUMN_FLAG, ACTION_COLUMN_FLAG].includes(flag!);
-      if (!customRender && format && !edit && !isDefaultAction) {
+      // 自定义格式化单元格
+      if (!customRender && format && !isDefaultAction) {
         column.customRender = ({ text, record, index }) => {
           return formatCell(text, format, record, index);
         };
@@ -141,7 +139,6 @@ export function useColumns(
     });
     return columns;
   });
-
   watch(
     () => unref(propsRef).columns,
     (columns) => {
@@ -149,10 +146,7 @@ export function useColumns(
       cacheColumns = columns?.filter((item) => !item.flag) ?? [];
     }
   );
-  /**
-   * set columns
-   * @param columnList key｜column
-   */
+  // 用于设置列配置
   function setColumns(columnList: Partial<BasicColumn>[] | string[]) {
     const columns = cloneDeep(columnList);
     if (!isArray(columns)) return;
@@ -179,8 +173,6 @@ export function useColumns(
           });
         }
       });
-
-      // Sort according to another array
       if (!isEqual(cacheKeys, columns)) {
         newColumns.sort((prev, next) => {
           return (
@@ -192,7 +184,7 @@ export function useColumns(
       columnsRef.value = newColumns;
     }
   }
-
+  // 获取列配置
   function getColumns(opt?: GetColumnsParams) {
     const { ignoreIndex, ignoreAction, sort } = opt || {};
     let columns = toRaw(unref(getColumnsRef));
@@ -202,14 +194,12 @@ export function useColumns(
     if (ignoreAction) {
       columns = columns.filter((item) => item.flag !== ACTION_COLUMN_FLAG);
     }
-
     if (sort) {
       columns = sortFixedColumn(columns);
     }
 
     return columns;
   }
-
   return {
     getColumnsRef,
     getColumns,
@@ -217,7 +207,7 @@ export function useColumns(
     getViewColumns,
   };
 }
-
+// 获取固定列配置
 function sortFixedColumn(columns: BasicColumn[]) {
   const fixedLeftColumns: BasicColumn[] = [];
   const fixedRightColumns: BasicColumn[] = [];
@@ -239,8 +229,7 @@ function sortFixedColumn(columns: BasicColumn[]) {
 
   return resultColumns;
 }
-
-// format cell
+// 格式化单元格
 export function formatCell(text: string, format: CellFormat, record: Recordable, index: number) {
   if (!format) {
     return text;

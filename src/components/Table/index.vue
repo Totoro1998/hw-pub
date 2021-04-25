@@ -6,7 +6,18 @@
     >
       <a-tab-pane v-for="item in tabConfigRef.tabItems" :key="item.key" :tab="item.tab" />
     </a-tabs>
-    <we-form v-if="getBindValues.useSearchForm" v-bind="getFormProps" @register="registerForm" />
+    <table-search-form
+      v-if="getBindValues.useSearchForm"
+      v-bind="getFormProps"
+      :reload="tableAction.reload"
+      @register="registerForm"
+    />
+    <table-header>
+      <template #headerButton>
+        <slot name="headerButton"> </slot>
+      </template>
+    </table-header>
+    <!-- <table-header /> -->
     <a-table
       ref="tableElRef"
       v-bind="getBindValues"
@@ -25,33 +36,30 @@
 </template>
 <script lang="ts">
   import type { BasicTableProps } from './types/table';
-  import { Recordable, Nullable } from '@/types/config';
-  import { FormProps } from '@/components/Form/types/form';
+  import { FormItem } from './types/form';
   import { defineComponent, ref, computed, unref, toRaw } from 'vue';
   import HeaderCell from './components/HeaderCell.vue';
+  import TableHeader from './components/TableHeader.vue';
+  import TableSearchForm from './components/TableSearchForm.vue';
   import { usePagination } from './hooks/usePagination';
   import { useColumns } from './hooks/useColumns';
   import { useDataSource } from './hooks/useDataSource';
   import { useLoading } from './hooks/useLoading';
   import { useTabs } from './hooks/useTabs';
-  import { useForm } from '@/components/Form';
+  import { useTableForm } from './hooks/useTableForm';
+  import { useRowSelection } from './hooks/useRowSelection';
   import omit from 'lodash/omit';
   import { basicProps } from './props';
-  import { ComponentRef } from '@/types/config';
   import { createTableContext } from './hooks/useTableContext';
 
   export default defineComponent({
     components: {
       HeaderCell,
+      TableHeader,
+      TableSearchForm,
     },
-    // props: {
-    //   clickToRowSelect: {
-    //     type: Boolean,
-    //     default: true,
-    //   },
-    // },
     props: basicProps,
-    emits: ['fetch-success', 'fetch-error', 'register', 'tab-change'],
+    emits: ['fetch-success', 'fetch-error', 'register', 'tab-change', 'selection-change'],
     setup(props, { attrs, emit, slots }) {
       const tableElRef = ref<ComponentRef>(null);
       const tableData = ref<Recordable[]>([]);
@@ -63,18 +71,29 @@
         return { ...props, ...unref(innerPropsRef) } as BasicTableProps;
       });
       const getFormProps = computed(
-        (): Partial<FormProps> => {
-          const { formConfig } = unref(getProps);
+        (): Partial<{ formItems: FormItem[] }> => {
+          const { formItems } = unref(getProps);
           return {
-            ...formConfig,
+            formItems,
           };
         }
       );
       const { getLoading, setLoading } = useLoading(getProps);
       const { getPaginationInfo, setPagination } = usePagination(getProps);
-      const [registerForm, formActions] = useForm();
-
-      const { handleTableChange, getDataSourceRef, getRowKey, reload } = useDataSource(
+      const [registerForm, formActions] = useTableForm();
+      const {
+        getRowSelectionRef,
+        getSelectRows,
+        clearSelectedRowKeys,
+        getSelectRowKeys,
+      } = useRowSelection(getProps, emit);
+      const {
+        getDataSource,
+        handleTableChange,
+        getDataSourceRef,
+        getRowKey,
+        reload,
+      } = useDataSource(
         getProps,
         {
           tableData,
@@ -86,7 +105,7 @@
         emit
       );
 
-      const { getViewColumns } = useColumns(getProps, getPaginationInfo);
+      const { getViewColumns, getColumns, setColumns } = useColumns(getProps, getPaginationInfo);
       const { tabConfigRef } = useTabs(getProps, emit);
 
       const getBindValues = computed(() => {
@@ -99,6 +118,7 @@
           tableLayout: 'fixed',
           rowKey: unref(getRowKey),
           columns: toRaw(unref(getViewColumns)),
+          rowSelection: unref(getRowSelectionRef),
           pagination: toRaw(unref(getPaginationInfo)),
           dataSource,
         };
@@ -123,11 +143,18 @@
       const tableAction: any = {
         reload,
         setProps,
+        getColumns,
+        setColumns,
+        setPagination,
+        getRowSelectionRef,
+        getSelectRows,
+        getDataSource,
+        clearSelectedRowKeys,
+        getSelectRowKeys,
       };
-
       createTableContext({ ...tableAction, wrapRef, getBindValues });
 
-      emit('register', tableAction, formActions);
+      emit('register', tableAction);
       return {
         tabConfigRef,
         getBindValues,

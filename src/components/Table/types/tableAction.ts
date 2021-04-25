@@ -1,4 +1,3 @@
-import { Fn } from '@/types/config';
 import { ButtonProps } from 'ant-design-vue/es/button/buttonTypes';
 export interface ActionItem extends ButtonProps {
   onClick?: Fn;

@@ -3,7 +3,6 @@ import type { BasicTableProps } from '../types/table';
 
 export function useLoading(props: ComputedRef<BasicTableProps>) {
   const loadingRef = ref(unref(props).loading);
-
   watch(
     () => unref(props).loading,
     (loading) => {

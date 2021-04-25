@@ -1,23 +1,33 @@
 @import '~ant-design-vue/dist/antd.less';
-@import '~@ant-design/aliyun-theme/index.less';
+@import '~ant-design-totoro-we-theme/index.less';
+@import './antd.less';
 @import './global.less';
 
+.app_wrapper {
+  height: 100vh;
+  overflow: scroll;
+}
 .app_header {
   display: flex;
   justify-content: space-between;
-  background-color: #181530;
+  background-color: #ffffff;
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.12);
   padding: 0;
   .logo {
-    width: 200px;
+    width: 256px;
     height: 64px;
-    background-color: aqua;
+    text-align: center;
+    line-height: 64px;
   }
 }
 .app_content {
   min-height: calc(100vh - 64px);
+  background-color: #ffffff;
 }
 .app_sider {
+  background-color: #ffffff;
   min-height: calc(100vh - 64px);
   overflow-y: auto;
   z-index: 2;
+  box-shadow: 1px 0px 0px #e0e0e0;
 }

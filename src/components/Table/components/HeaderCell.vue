@@ -11,7 +11,9 @@
     props: {
       column: {
         type: Object as PropType<BasicColumn>,
-        default: {},
+        default: () => {
+          return {};
+        },
       },
     },
     setup(props) {

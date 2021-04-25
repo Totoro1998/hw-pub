@@ -7,10 +7,8 @@ import type {
   TabConfig,
   TabItems,
   TableCustomRecord,
+  TableRowSelection,
 } from './types/table';
-import { Recordable } from '@/types/config';
-import { FormProps } from '@/components/Form/types/form';
-
 const DEFAULT_FILTER_FN = (data: Partial<Recordable<string[]>>) => {
   return data;
 };
@@ -119,11 +117,6 @@ export const basicProps = {
   useSearchForm: {
     type: Boolean,
   },
-  // 表单配置
-  formConfig: {
-    type: Object as PropType<Partial<FormProps>>,
-    default: null,
-  },
   columns: {
     type: [Array] as PropType<BasicColumn[]>,
     default: () => [],
@@ -179,6 +172,10 @@ export const basicProps = {
   },
   rowClassName: {
     type: Function as PropType<(record: TableCustomRecord<any>, index: number) => string>,
+  },
+  rowSelection: {
+    type: Object as PropType<TableRowSelection | null>,
+    default: null,
   },
   scroll: {
     type: Object as PropType<{ x: number | true; y: number }>,

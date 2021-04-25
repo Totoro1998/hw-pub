@@ -17,10 +17,7 @@ import isFunction from 'lodash/isFunction';
 import isBoolean from 'lodash/isBoolean';
 import cloneDeep from 'lodash/cloneDeep';
 import uniqueId from 'lodash/uniqueId';
-
-import { EmitType, Recordable } from '@/types/config';
-const ROW_KEY = 'key';
-const PAGE_SIZE = 10;
+import { PAGE_SIZE, ROW_KEY } from '../const';
 interface ActionType {
   getPaginationInfo: ComputedRef<boolean | PaginationProps>;
   setPagination: (info: Partial<PaginationProps>) => void;

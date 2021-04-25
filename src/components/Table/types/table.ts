@@ -1,13 +1,12 @@
 import type { VNodeChild } from 'vue';
 import type { PaginationProps } from './pagination';
-import { FormProps } from '@/components/Form/types/form';
+import { FormItem } from './form';
 
 import type {
   ColumnProps,
   TableRowSelection as ITableRowSelection,
 } from 'ant-design-vue/lib/table/interface';
 
-import { EmitType, Recordable } from '@/types/config';
 export type VueNode = VNodeChild | JSX.Element;
 export declare type SortOrder = 'ascend' | 'descend';
 export interface TableRowSelection<T = any> extends ITableRowSelection {
@@ -78,6 +77,9 @@ export interface TableActionType {
   updateTableData: (index: number, key: string, value: any) => Recordable;
   setShowPagination: (show: boolean) => Promise<void>;
   getShowPagination: () => boolean;
+  clearSelectedRowKeys: () => void;
+  getSelectRowKeys: () => string[];
+  getSelectRows: <T = Recordable>() => T[];
 }
 
 export interface FetchSetting {
@@ -92,7 +94,12 @@ export interface FetchSetting {
   orderField: string;
   orderByField: string;
 }
-
+export interface TableRowSelection<T = any> extends ITableRowSelection {
+  onChange?: (selectedRowKeys: string[] | number[], selectedRows: T[]) => any;
+  onSelect?: (record: T, selected: boolean, selectedRows: Object[], nativeEvent: Event) => any;
+  onSelectAll?: (selected: boolean, selectedRows: T[], changeRows: T[]) => any;
+  onSelectInvert?: (selectedRows: string[] | number[]) => any;
+}
 export interface TableSetting {
   setting?: boolean;
   fullScreen?: boolean;
@@ -156,7 +163,7 @@ export interface BasicTableProps<T = any> {
   // 数据
   dataSource?: Recordable[];
   // 表单配置
-  formConfig?: Partial<FormProps>;
+  formItems?: FormItem[];
   // 是否显示边框
   bordered?: boolean;
   // 分页配置
@@ -165,6 +172,8 @@ export interface BasicTableProps<T = any> {
   loading?: boolean;
   indentSize?: number;
   rowClassName?: (record: TableCustomRecord<T>) => string;
+  // 列表项是否可选择
+  rowSelection?: TableRowSelection;
   scroll?: { x?: number | true; y?: number };
   showHeader?: boolean;
   size?: SizeType;
@@ -186,5 +195,4 @@ export interface BasicColumn extends ColumnProps {
   slots?: Recordable;
   defaultHidden?: boolean;
   format?: CellFormat;
-  edit?: boolean;
 }

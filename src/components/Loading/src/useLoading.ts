@@ -2,8 +2,6 @@ import { unref } from 'vue';
 import { createLoading } from './createLoading';
 import type { LoadingProps } from './types';
 import type { Ref } from 'vue';
-import { ElRef } from '@/types/config';
-
 export interface UseLoadingOptions {
   target?: HTMLElement | Ref<ElRef>;
   props?: Partial<LoadingProps>;
@@ -12,9 +10,6 @@ export interface UseLoadingOptions {
 interface Fn {
   (): void;
 }
-
-export function useLoading(props: Partial<LoadingProps>): [Fn, Fn];
-export function useLoading(opt: Partial<UseLoadingOptions>): [Fn, Fn];
 
 export function useLoading(opt: Partial<LoadingProps> | Partial<UseLoadingOptions>): [Fn, Fn] {
   let props: Partial<LoadingProps>;

@@ -1,17 +1,15 @@
 import type { BasicTableProps, TableActionType, FetchParams, BasicColumn } from '../types/table';
 import type { PaginationProps } from '../types/pagination';
-import { getDynamicProps, DynamicProps, Nullable } from '@/types/config';
 import { ref, onUnmounted, unref, watch, toRaw, WatchStopHandle } from 'vue';
-import { FormActionType } from '@/components/Form/types/form';
+import { DynamicProps } from '@/types/config';
+import { getDynamicProps } from '@/utils/common';
 
 type Props = Partial<DynamicProps<BasicTableProps>>;
-type UseTableMethod = TableActionType & {
-  getForm: () => FormActionType;
-};
-//返回WETable组件的配置
+type UseTableMethod = TableActionType;
+//返回WeTable组件的配置
 export function useTable(
   tableProps?: Props
-): [(instance: TableActionType, formInstance: UseTableMethod) => void, TableActionType] {
+): [(instance: TableActionType, formInstance: TableActionType) => void, TableActionType] {
   const tableRef = ref<Nullable<TableActionType>>(null);
   const loadedRef = ref<Nullable<boolean>>(false);
   const formRef = ref<Nullable<UseTableMethod>>(null);
@@ -49,9 +47,7 @@ export function useTable(
     return table as TableActionType;
   }
 
-  const methods: TableActionType & {
-    getForm: () => FormActionType;
-  } = {
+  const methods: TableActionType = {
     reload: async (opt?: FetchParams) => {
       getTableInstance().reload(opt);
     },
@@ -89,10 +85,15 @@ export function useTable(
     getShowPagination: () => {
       return toRaw(getTableInstance().getShowPagination());
     },
-    getForm: () => {
-      return (unref(formRef) as unknown) as FormActionType;
+    getSelectRowKeys: () => {
+      return toRaw(getTableInstance().getSelectRowKeys());
+    },
+    getSelectRows: () => {
+      return toRaw(getTableInstance().getSelectRows());
+    },
+    clearSelectedRowKeys: () => {
+      getTableInstance().clearSelectedRowKeys();
     },
   };
-
   return [register, methods];
 }

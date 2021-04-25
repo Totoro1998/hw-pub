@@ -2,7 +2,7 @@ const path = require('path');
 const { dev } = require('./config');
 const webpack = require('webpack');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
-const aliyunTheme = require('@ant-design/aliyun-theme');
+const weTheme = require('ant-design-totoro-we-theme');
 const resolve = (dir) => {
   return path.join(__dirname, dir);
 };
@@ -40,18 +40,6 @@ module.exports = {
       },
     ]);
     config.plugins.delete('prefetch');
-    config.module.rule('svg').exclude.add(resolve('src/icons')).end();
-    config.module
-      .rule('icons')
-      .test(/\.svg$/)
-      .include.add(resolve('src/icons'))
-      .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
-      .options({
-        symbolId: 'icon-[name]',
-      })
-      .end();
     config.when(isProd, (config) => {
       config
         .plugin('ScriptExtHtmlWebpackPlugin')
@@ -111,7 +99,7 @@ module.exports = {
       less: {
         lessOptions: {
           javascriptEnabled: true,
-          modifyVars: aliyunTheme,
+          modifyVars: weTheme,
         },
       },
     },

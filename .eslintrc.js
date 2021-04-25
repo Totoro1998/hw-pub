@@ -69,4 +69,9 @@ module.exports = {
       },
     ],
   },
+  globals: {
+    Nullable: true,
+    Recordable: true,
+    ComponentRef: true,
+  },
 };

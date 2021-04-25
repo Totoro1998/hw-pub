@@ -3,6 +3,10 @@
     <template #action="{ record, column }">
       <table-action :actions="handleActions(record, column)" />
     </template>
+    <template #headerButton>
+      <a-button type="primary" @click="getSelectedRows">获取勾选数据</a-button>
+      <a-button type="primary">获取勾选key</a-button>
+    </template>
   </we-table>
 </template>
 <script lang="ts">
@@ -50,32 +54,76 @@
       WeTable,
     },
     setup() {
-      const [register, { reload }] = useTable({
+      const [register, { reload, getSelectRows, getSelectRowKeys }] = useTable({
         title: '工作流列表',
         api: getWorkFlowList,
         useSearchForm: true,
-        formConfig: {
-          labelWidth: 100,
-          formItems: [
-            {
-              field: `name`,
-              label: `姓名`,
-              component: 'a-input',
+        formItems: [
+          {
+            field: `name`,
+            label: `姓名`,
+            componentType: 'a-input',
+            componentProps: {
+              placeholder: '请输入',
             },
-            {
-              field: `modifier`,
-              label: `修改人`,
-              component: 'a-input',
+          },
+          {
+            field: `modifier`,
+            label: `修改人`,
+            componentType: 'a-input',
+            componentProps: {
+              placeholder: '请输入',
             },
-          ],
-        },
+          },
+          {
+            field: `modifier`,
+            label: `修改人`,
+            componentType: 'a-input',
+            componentProps: {
+              placeholder: '请输入',
+            },
+          },
+          {
+            field: `modifier`,
+            label: `修改人`,
+            componentType: 'a-input',
+            componentProps: {
+              placeholder: '请输入',
+            },
+          },
+          {
+            field: `modifier`,
+            label: `修改人`,
+            componentType: 'a-input',
+            componentProps: {
+              placeholder: '请输入',
+            },
+          },
+          {
+            field: `modifier`,
+            label: `修改人`,
+            componentType: 'a-input',
+            componentProps: {
+              placeholder: '请输入',
+            },
+          },
+          {
+            field: `modifier`,
+            label: `修改人`,
+            componentType: 'a-input',
+            componentProps: {
+              placeholder: '请输入',
+            },
+          },
+        ],
         columns: columns,
         actionColumn: {
-          width: 260,
+          width: 300,
           title: '操作',
           dataIndex: 'action',
           slots: { customRender: 'action' },
         },
+        rowSelection: { type: 'checkbox' },
       });
 
       function handleEdit(record: any) {
@@ -111,7 +159,12 @@
           },
         ];
       }
-      return { register, reload, handleActions };
+      return { register, reload, handleActions, getSelectRows, getSelectRowKeys };
+    },
+    methods: {
+      getSelectedRows() {
+        console.log(this.getSelectRows());
+      },
     },
   });
 </script>

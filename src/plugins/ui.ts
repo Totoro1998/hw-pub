@@ -4,6 +4,8 @@ import {
   Button,
   Card,
   Checkbox,
+  Col,
+  ConfigProvider,
   Drawer,
   Dropdown,
   Form,
@@ -21,11 +23,10 @@ import {
   Tooltip,
   Upload,
   DatePicker,
+  Popover,
 } from 'ant-design-vue';
 import SvgIcon from '@/components/SvgIcon/index.vue'; // svg component
-import TableAction from '@/components/Table/components/TableAction.vue'; // svg component
-import { WeForm } from '@/components/Form';
-
+import TableAction from '@/components/Table/components/TableAction.vue';
 import { App } from 'vue';
 
 const compList = [
@@ -34,6 +35,9 @@ const compList = [
   Button,
   Card,
   Checkbox,
+  Checkbox.Group,
+  Col,
+  ConfigProvider,
   Drawer,
   Dropdown,
   Form,
@@ -59,12 +63,12 @@ const compList = [
   Timeline,
   Tooltip,
   Upload,
+  Popover,
   SvgIcon,
   TableAction,
   DatePicker,
   DatePicker.MonthPicker,
   DatePicker.RangePicker,
-  WeForm,
 ];
 export function registerUI(app: App) {
   compList.forEach((comp: any) => {

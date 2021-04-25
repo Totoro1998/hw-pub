@@ -2,7 +2,6 @@ import type { Ref } from 'vue';
 import type { BasicTableProps, TableActionType } from '../types/table';
 
 import { provide, inject, ComputedRef } from 'vue';
-import { Nullable, Recordable } from '@/types/config';
 
 const key = Symbol('basic-table');
 

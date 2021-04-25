@@ -1,4 +1,3 @@
-import { EmitType } from '@/types/config';
 import { ref, ComputedRef, unref, watch } from 'vue';
 import type { BasicTableProps } from '../types/table';
 

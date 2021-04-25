@@ -1,13 +1,16 @@
 <template>
-  <svg :class="svgClass" aria-hidden="true">
-    <use :xlink:href="iconType" />
-  </svg>
+  <icon-font :type="iconName" />
 </template>
 
 <script>
   import { defineComponent } from 'vue';
+  import { createFromIconfontCN } from '@ant-design/icons-vue';
+  const IconFont = createFromIconfontCN({
+    scriptUrl: '//at.alicdn.com/t/font_2385408_4fidjra7bo6.js',
+  });
   export default defineComponent({
     name: 'SvgIcon',
+    components: { IconFont },
     props: {
       iconName: {
         type: String,
@@ -16,18 +19,6 @@
       className: {
         type: String,
         default: '',
-      },
-    },
-    computed: {
-      iconType() {
-        return `#icon-${this.iconName}`;
-      },
-      svgClass() {
-        if (this.className) {
-          return 'svg-icon ' + this.className;
-        } else {
-          return 'svg-icon';
-        }
       },
     },
   });

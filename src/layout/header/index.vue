@@ -1,7 +1,7 @@
 <template>
-  <a-layout-header class="app_header">
+  <a-layout-header class="app_header" theme="light">
     <div class="logo">
-      <svg-icon iconName="QuestionCircleOutlined" />
+      <img src="@/assets/logo.svg" alt="" />
     </div>
     <header-menu />
     <header-drop-down :avatar-url="userInfo.avatar" />

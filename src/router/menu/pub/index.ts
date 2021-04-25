@@ -1,10 +1,10 @@
-import { MenuItem } from '@/types/config';
 import audit from './audit';
 import crm from './crm';
 import product from './product';
 import workflow from './workflow';
 import bill from './bill';
 import config from './config';
+import { MenuItem } from '@/types/config';
 const pub: MenuItem = {
   path: 'pub',
   title: '发行',
